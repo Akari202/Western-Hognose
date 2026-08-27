@@ -7,7 +7,7 @@ from logging import debug, error, info, warning
 
 class DiskDict(dict):
     def __init__(self, filename: str = "cache.json"):
-        self.filename = filename
+        self.filename = os.path.expanduser(filename)
         self._dirty = False
         self._ensure_directory_exists()
         if os.path.exists(self.filename):
