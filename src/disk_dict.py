@@ -35,7 +35,7 @@ class DiskDict(dict):
                 logger.log(level, msg)
             else:
                 level_name = logging.getLevelName(level)
-                print(f"{level_name}: {msg}")
+                print(f"{level_name}: {msg}", file=sys.stderr)
 
         if not self._dirty:
             log_or_print(
@@ -80,3 +80,8 @@ class DiskDict(dict):
         if self:
             super().clear()
             self._dirty = True
+
+    def setdefault(self, key, default=None):
+        if key not in self:
+            self[key] = default
+        return self[key]
